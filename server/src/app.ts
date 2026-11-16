@@ -35,8 +35,8 @@ app.use(cookieParser());
 app.get('/api/health', (req: Request, res: Response) => {
   res.status(200).json({
     status: true,
-    message: "BookNest API is running",
-    "environment": "development",
+    message: 'BookNest API is running',
+    environment: process.env.NODE_ENV ?? 'development',
   });
 });
 

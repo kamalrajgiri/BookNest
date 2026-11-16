@@ -9,7 +9,7 @@ import Wishlist from '../models/Wishlist.js';
 import RefreshToken from '../models/RefreshToken.js';
 
 import { hashPassword, comparePassword } from '../utils/password.js';
-import {config as env } from '../config/env.js'
+import { config as env } from '../config/env.js';
 
 import {
     generateAccessToken,
@@ -18,6 +18,19 @@ import {
     hashToken,
     type RefreshTokenPayload,
 } from '../utils/token.js';
+
+// --------------------------------------------------
+// REFRESH COOKIE CONFIGURATION
+// --------------------------------------------------
+
+const isProduction = env.nodeEnv === 'production';
+
+const refreshCookieOptions = {
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: isProduction ? 'none' as const : 'lax' as const,
+    path: '/api/auth',
+};
 
 // --------------------------------------------------
 // REGISTER
@@ -206,11 +219,8 @@ export async function login(
         });
 
         res.cookie('refreshToken', refreshToken, {
-            httpOnly: true,
-            secure: env.nodeEnv === 'production',
-            sameSite: 'lax',
+            ...refreshCookieOptions,
             maxAge: env.jwtRefreshExpiresInMs,
-            path: '/api/auth',
         });
 
         res.status(200).json({
@@ -306,7 +316,7 @@ export async function refresh(
                         where: {
                             id: storedToken.id,
                             revokedAt: null,
-                            expiresAt: {[Op.gt]: new Date() },
+                            expiresAt: { [Op.gt]: new Date() },
                         },
                         transaction,
                     }
@@ -348,13 +358,10 @@ export async function refresh(
             role: user.role,
         });
 
-        // 7. Replace the old refresh cookie.
+        // 7. Replace the old refresh cookie with consistent options.
         res.cookie('refreshToken', newRefreshToken, {
-            httpOnly: true,
-            secure: true,
-            sameSite: 'none',
+            ...refreshCookieOptions,
             maxAge: env.jwtRefreshExpiresInMs,
-            path: '/api/auth',
         });
 
         // 8. Return the new access token and safe user details.
@@ -375,6 +382,9 @@ export async function refresh(
     }
 }
 
+// --------------------------------------------------
+// LOGOUT
+// --------------------------------------------------
 
 export async function logout(
     req: Request,
@@ -403,12 +413,7 @@ export async function logout(
         }
 
         // Clear the cookie using the same options used when setting it.
-        res.clearCookie('refreshToken', {
-            httpOnly: true,
-            secure: env.nodeEnv === 'production',
-            sameSite: 'lax',
-            path: '/api/auth',
-        });
+        res.clearCookie('refreshToken', refreshCookieOptions);
 
         res.status(200).json({
             message: 'Logout successful.',
