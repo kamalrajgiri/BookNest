@@ -1,0 +1,414 @@
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main application layout */
+
+#root > header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(255, 255, 255, 0.97);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(12px);
+}
+
+#root > header nav {
+  width: min(1200px, calc(100% - 40px));
+  min-height: 76px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+#root > header nav > a {
+  flex-shrink: 0;
+  color: var(--color-primary);
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.65rem;
+}
+
+#root > header nav > div {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+#root > header nav a:not(:first-child) {
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+#root > header nav a.active {
+  color: var(--color-accent);
+}
+
+#root > header nav span {
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+#root > header nav button {
+  min-height: 36px;
+  padding: 6px 13px;
+  font-size: 0.85rem;
+}
+
+#root > main {
+  width: min(1200px, calc(100% - 40px));
+  flex: 1;
+  margin: 0 auto;
+  padding: 42px 0 64px;
+}
+
+#root > footer {
+  padding: 24px 20px;
+  color: #dce3ed;
+  background: var(--color-primary-dark);
+  text-align: center;
+}
+
+#root > footer p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* Page sections */
+
+#root > main > section,
+#root > main > main {
+  width: 100%;
+}
+
+#root > main > main {
+  padding: 0;
+}
+
+section > h1:first-child {
+  margin-bottom: 26px;
+}
+
+/* Catalogue filters */
+
+section > div:has(> label[for="search"]) {
+  max-width: 560px;
+  margin-bottom: 18px;
+}
+
+section > div:has(> label[for="minPrice"]) {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: end;
+  gap: 14px;
+  padding: 20px;
+  margin-bottom: 26px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+section > div:has(> label[for="minPrice"]) button {
+  grid-column: 1 / -1;
+  justify-self: start;
+}
+
+/* Book and order cards */
+
+article {
+  padding: 22px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+
+article + article {
+  margin-top: 16px;
+}
+
+article h3 {
+  color: var(--color-primary);
+}
+
+article p {
+  margin-bottom: 9px;
+}
+
+article ul {
+  padding-left: 22px;
+}
+
+article li {
+  margin: 6px 0;
+}
+
+/* Catalogue grid and generic card grids */
+
+section > div:has(> article),
+section > div:has(> a),
+section > div:has(> article a) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+section > div:has(> article) > article,
+section > div:has(> a) > article {
+  min-width: 0;
+}
+
+/* Book details */
+
+main > a:first-child {
+  display: inline-block;
+  margin-bottom: 24px;
+  font-weight: 600;
+}
+
+main > h1 {
+  max-width: 850px;
+  margin-bottom: 10px;
+}
+
+main > h2 {
+  color: var(--color-muted);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+main > p {
+  max-width: 850px;
+  color: #566174;
+}
+
+main > button {
+  margin: 12px 10px 12px 0;
+}
+
+main > section {
+  margin-top: 26px;
+}
+
+main > section > article {
+  margin: 14px 0;
+}
+
+/* Forms */
+
+form {
+  display: grid;
+  gap: 12px;
+}
+
+form > div {
+  min-width: 0;
+}
+
+form button {
+  justify-self: start;
+}
+
+form button + button {
+  margin-left: 8px;
+}
+
+form p {
+  color: var(--color-muted);
+  font-size: 0.88rem;
+}
+
+/* Admin dashboard */
+
+section > form {
+  max-width: 760px;
+  padding: 26px;
+  margin: 18px 0 30px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+
+section > form > div {
+  display: grid;
+  gap: 6px;
+}
+
+section > form > div label {
+  margin-bottom: 0;
+}
+
+section > form > button {
+  margin-top: 6px;
+}
+
+section > h2 {
+  margin-top: 28px;
+}
+
+section > p[role="alert"],
+main p[role="alert"] {
+  padding: 12px 15px;
+  color: #9f3030;
+  background: #fff0ef;
+  border: 1px solid #f2cfca;
+  border-radius: 8px;
+}
+
+section > p[role="status"],
+main p[role="status"] {
+  padding: 12px 15px;
+  color: #206c4c;
+  background: #eaf7ef;
+  border: 1px solid #c8e8d4;
+  border-radius: 8px;
+}
+
+/* Admin book/order lists */
+
+section > div:has(> article) article button {
+  margin: 8px 8px 0 0;
+}
+
+section > div:has(> article) article button:last-child {
+  background: var(--color-danger);
+  border-color: var(--color-danger);
+}
+
+section > div:has(> article) article button:last-child:hover {
+  background: #9f3030;
+}
+
+/* Pagination */
+
+nav[aria-label="Review pagination"] {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 20px 0;
+}
+
+nav[aria-label="Review pagination"] span {
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+/* Buttons inside pages */
+
+main button,
+section button {
+  margin-top: 4px;
+}
+
+button[type="submit"] {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+button[type="submit"]:hover:not(:disabled) {
+  background: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+}
+
+/* Tables, if used by future admin views */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+th,
+td {
+  padding: 13px 15px;
+  border-bottom: 1px solid var(--color-border);
+  text-align: left;
+}
+
+th {
+  color: var(--color-primary);
+  background: #f0f1f2;
+  font-size: 0.88rem;
+}
+
+td {
+  font-size: 0.92rem;
+}
+
+/* Responsive layout */
+
+@media (max-width: 800px) {
+  #root > header nav {
+    padding: 14px 0;
+    flex-wrap: wrap;
+  }
+
+  #root > header nav > div {
+    gap: 12px;
+  }
+
+  #root > main {
+    padding-top: 30px;
+  }
+
+  section > div:has(> label[for="minPrice"]) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  #root > header nav {
+    width: calc(100% - 28px);
+    gap: 12px;
+  }
+
+  #root > header nav > a {
+    width: 100%;
+  }
+
+  #root > header nav > div {
+    width: 100%;
+    gap: 10px 14px;
+  }
+
+  #root > header nav > div:last-child {
+    padding-top: 8px;
+    border-top: 1px solid var(--color-border);
+  }
+
+  #root > main {
+    width: calc(100% - 28px);
+    padding: 26px 0 42px;
+  }
+
+  section > div:has(> label[for="minPrice"]) {
+    grid-template-columns: 1fr;
+    padding: 15px;
+  }
+
+  article {
+    padding: 17px;
+  }
+
+  section > form {
+    padding: 18px;
+  }
+
+  nav[aria-label="Review pagination"] {
+    flex-wrap: wrap;
+  }
+
+  button {
+    max-width: 100%;
+  }
+}
