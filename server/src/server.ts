@@ -11,6 +11,9 @@ async function startServer(){
     await sequelize.authenticate();
     console.log('[database]: MySQL connection has been established successfully.');
 
+    await sequelize.sync({ alter: true });
+    console.log('[server]: Database models synchronized.');
+
     app.listen(PORT, () => {
       console.log(`[server]: Server is running in ${config.nodeEnv} mode at http://localhost:${PORT}`);
     });
