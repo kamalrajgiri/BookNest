@@ -19,7 +19,7 @@ const allowedOrigins = [process.env.CLIENT_URL,'http://localhost:5173'].filter(B
 app.use(
   cors({
     origin: (origin, callback) => {
-      if(!origin || allowedOrigins.includes(origin)){
+      if(!origin || allowedOrigins.includes(origin) || origin.endsWith('.verical.app')){
         callback(null,true);
       }else {
         callback(new Error('Not allowed by CORS'));
