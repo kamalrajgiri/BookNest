@@ -14,12 +14,12 @@ const app: Application = express();
 
 app.use(helmet());
 
-const allowedOrigins = [process.env.CLIENT_URL,'http://localhost:5173'].filter(Boolean);
+const allowedOrigins = [process.env.CLIENT_URL,'http://localhost:5173'].filter( (origin):origin is string => Boolean(origin));
 
 app.use(
   cors({
     origin: (origin, callback) => {
-      if(!origin || allowedOrigins.includes(origin) || origin.endsWith('.verical.app')){
+      if(!origin || allowedOrigins.includes(origin)){
         callback(null,true);
       }else {
         callback(new Error('Not allowed by CORS'));

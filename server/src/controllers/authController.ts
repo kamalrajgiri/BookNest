@@ -351,8 +351,8 @@ export async function refresh(
         // 7. Replace the old refresh cookie.
         res.cookie('refreshToken', newRefreshToken, {
             httpOnly: true,
-            secure: env.nodeEnv === 'production',
-            sameSite: 'lax',
+            secure: true,
+            sameSite: 'none',
             maxAge: env.jwtRefreshExpiresInMs,
             path: '/api/auth',
         });
